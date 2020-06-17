@@ -1,46 +1,58 @@
 package com.example.demo;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Snbboard;
-import com.example.demo.entity.Snbuser;
 
 @Service
 public class SnbService {
 
 	@Autowired
 	private BoardRepository boardRepository;
-	private UserRepository userRepository;
-	
-	public List<Snbboard> findAllBoard() {
-		return boardRepository.findAll();
+
+	public List<Snbboard> findAllBoard(Snbboard snbboard) {
+		Pageable pageable = PageRequest.of(snbboard.getPagenum()-1, snbboard.getLimit(), Sort.by("boardseq").descending());
+		Page<Snbboard> snbboardPage = boardRepository.findAll(BoardSpec.withDelyn("N"), pageable);
+		List<Snbboard> snbboardList = snbboardPage.getContent();
+		if(snbboardList.size() > 0)
+		{
+			snbboardList.get(0).setTotalpage(snbboardPage.getTotalPages());
+		}
+		return snbboardList;
 	}
 	
-	public Snbboard saveBoard(Snbboard board) {
-		return boardRepository.save(board);
+	public Snbboard findByIdBoard(Integer boardSeq) {
+		Optional<Snbboard> snbBoardOptional = boardRepository.findById(boardSeq);
+		return snbBoardOptional.get();
 	}
-	
-	public void deleteBoard(Snbboard board) {
-		boardRepository.delete(board);
+
+	public Snbboard saveBoard(Snbboard snbboard) {
+		snbboard.setDelyn("N");
+		Date date = new Date();
+		long longUtcTime = date.getTime();
+		TimeZone zone = TimeZone.getDefault();
+		int offset = zone.getOffset(longUtcTime);
+		long longLocalTime = longUtcTime + offset;
+		Date now = new Date();
+		now.setTime(longLocalTime);
+		snbboard.setUpddate(LocalDateTime.now());
+		return boardRepository.save(snbboard);
 	}
-	
-	public List<Snbuser> findAllUser() {
-		return userRepository.findAll();
-	}
-	
-	public Optional<Snbuser> findByIdUser(String userid) {
-		return userRepository.findById(userid);
-	}
-	
-	public Snbuser saveUser(Snbuser user) {
-		return userRepository.save(user);
-	}
-	
-	public void deleteUser(Snbuser user) {
-		userRepository.delete(user);
+
+	public Snbboard deleteBoard(Snbboard snbboard) {
+		snbboard.setUpddate(LocalDateTime.now());
+		snbboard.setDelyn("Y");
+		return boardRepository.save(snbboard);
 	}
 }

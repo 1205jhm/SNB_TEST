@@ -7,24 +7,17 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	
+
 	@Override
-	public void configure(WebSecurity web) throws Exception
-	{
+	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/css/**", "/script/**", "image/**", "/fonts/**", "lib/**");
 	}
+
 	@Override
-	protected void configure(HttpSecurity http) throws Exception
-	{
-		http.authorizeRequests()
-			.antMatchers("/loginCheck").permitAll()
-			.antMatchers("/**").permitAll()
-			.and()
-			.formLogin()
-	        .loginPage("/login").permitAll()
-	        .and()
-	        .logout()
-	        .logoutSuccessUrl("/login");
-        
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests().antMatchers("/**").permitAll().and().formLogin().loginPage("/login").permitAll().and()
+				.logout().logoutSuccessUrl("/login");
+		super.configure(http);
+		http.csrf().disable();
 	}
 }

@@ -93,3 +93,5 @@ a:link, a:visited {
 	border: 1px solid #56819d;
 	vertical-align: middle
 }
+.wirte {border: 1px solid #000; }
+.view {border: 0;}

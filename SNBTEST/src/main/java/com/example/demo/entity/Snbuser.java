@@ -9,11 +9,10 @@ import lombok.Data;
 @Data
 @Entity
 public class Snbuser {
+
 	@Id
 	private String userid;
-	
+
 	@Column
 	private String pass;
-	
-	private String role;
 }
