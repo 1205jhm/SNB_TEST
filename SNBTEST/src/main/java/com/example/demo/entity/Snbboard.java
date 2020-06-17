@@ -1,7 +1,6 @@
 package com.example.demo.entity;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +13,6 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import lombok.Data;
-
 
 @DynamicUpdate
 @DynamicInsert
@@ -32,16 +30,16 @@ public class Snbboard {
 	@Column
 	private String content;
 
-	@Column(insertable=false)
+	@Column(insertable = false)
 	private String delyn;
 
-	@Column(insertable=false, updatable=false)
+	@Column(insertable = false, updatable = false)
 	private LocalDateTime insdate;
 
-	@Column(insertable=false)
+	@Column(insertable = false)
 	private LocalDateTime upddate;
 
-	@Column(updatable=false)
+	@Column(updatable = false)
 	private String insuser;
 
 	@Transient

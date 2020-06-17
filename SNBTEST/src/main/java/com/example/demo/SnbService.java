@@ -22,16 +22,15 @@ public class SnbService {
 	private BoardRepository boardRepository;
 
 	public List<Snbboard> findAllBoard(Snbboard snbboard) {
-		Pageable pageable = PageRequest.of(snbboard.getPagenum()-1, snbboard.getLimit(), Sort.by("boardseq").descending());
+		Pageable pageable = PageRequest.of(snbboard.getPagenum() - 1, snbboard.getLimit(), Sort.by("boardseq").descending());
 		Page<Snbboard> snbboardPage = boardRepository.findAll(BoardSpec.withDelyn("N"), pageable);
 		List<Snbboard> snbboardList = snbboardPage.getContent();
-		if(snbboardList.size() > 0)
-		{
+		if (snbboardList.size() > 0) {
 			snbboardList.get(0).setTotalpage(snbboardPage.getTotalPages());
 		}
 		return snbboardList;
 	}
-	
+
 	public Snbboard findByIdBoard(Integer boardSeq) {
 		Optional<Snbboard> snbBoardOptional = boardRepository.findById(boardSeq);
 		return snbBoardOptional.get();
