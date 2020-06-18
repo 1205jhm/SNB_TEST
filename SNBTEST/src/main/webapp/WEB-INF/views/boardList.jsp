@@ -20,9 +20,9 @@
 				success : function(result) {
 					var paging = "";
 					for(var i=1; i<=result[0].totalpage; i++) {
-						paging += "<li onclick='setpage("+i+")'>"+i+"</li>"
+						paging += "<li id='num"+i+"' onclick='setpage("+i+")'><a>"+i+"</a></li>"
 					}
-				    $("#paging").html(paging);
+				    $("#page").html(paging);
 				    $("#list").html("");
 					$("#listTmpl").tmpl(result).appendTo("#list");
 				}
@@ -30,6 +30,8 @@
 		}
 		function setpage(i) {
 			$("#pagenum").val(i);
+			$("li").removeAttr("class");
+			$("#num"+i).attr("class","now");
 			findAllBoard();
 		}
 		function view(boardseq) {
@@ -71,7 +73,7 @@
 				</tbody>
 			</table>
 			<br />
-			<ul id=paging>
+			<ul id=page>
 			</ul>
 		</form>
 	</div>
