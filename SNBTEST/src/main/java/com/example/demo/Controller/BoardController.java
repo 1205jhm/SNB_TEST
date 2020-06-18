@@ -2,9 +2,10 @@ package com.example.demo.Controller;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,10 +20,8 @@ import com.example.demo.service.BoardService;
 @Controller
 public class BoardController {
 
-	private final Logger logger = LoggerFactory.getLogger(BoardController.class);
-
 	@Autowired
-	private BoardService snbService;
+	private BoardService boardService;
 
 	@RequestMapping(value = "/list")
 	public String list() {
@@ -31,7 +30,7 @@ public class BoardController {
 
 	@RequestMapping(value = "/findAllBoard.do", method = RequestMethod.POST)
 	public @ResponseBody List<Snbboard> findAllBoard(@ModelAttribute Snbboard snbboard) {
-		return snbService.findAllBoard(snbboard);
+		return boardService.findAllBoard(snbboard);
 	}
 
 	@RequestMapping(value = "/write")
@@ -41,19 +40,21 @@ public class BoardController {
 
 	@RequestMapping(value = "/saveBoard.do", method = RequestMethod.POST)
 	public @ResponseBody Snbboard saveBoard(@ModelAttribute Snbboard snbboard) {
-		snbboard.setInsuser("하이");
-		return snbService.saveBoard(snbboard);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = (User) authentication.getPrincipal();
+		snbboard.setInsuser(user.getUsername());
+		return boardService.saveBoard(snbboard);
 	}
 
 	@RequestMapping(value = "/deleteBoard.do", method = RequestMethod.POST)
 	public @ResponseBody Snbboard deleteBoard(@ModelAttribute Snbboard snbboard) {
-		return snbService.deleteBoard(snbboard);
+		return boardService.deleteBoard(snbboard);
 	}
 
 	@RequestMapping(value = "/view")
 	public ModelAndView view(@RequestParam String boardseq) {
 		ModelAndView mv = new ModelAndView("boardView");
-		Snbboard snbboard = snbService.findByIdBoard(Integer.parseInt(boardseq));
+		Snbboard snbboard = boardService.findByIdBoard(Integer.parseInt(boardseq));
 		mv.addObject("row", snbboard);
 		return mv;
 	}

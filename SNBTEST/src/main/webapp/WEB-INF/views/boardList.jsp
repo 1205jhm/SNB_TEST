@@ -9,7 +9,7 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
 	<script type="text/javascript">
-		function findAllBoard() {
+	 	function findAllBoard() {
 			var params = $("#form01").serialize();
 			$.ajax({
 				url : '/findAllBoard.do',
@@ -25,7 +25,6 @@
 				    $("#paging").html(paging);
 				    $("#list").html("");
 					$("#listTmpl").tmpl(result).appendTo("#list");
-					console.log(result[0].title);
 				}
 			});
 		}
@@ -42,33 +41,40 @@
 	</script>
 </head>
 <body>
-	<h2>게시판 목록</h2>
-	<form id="form01">
-		<input type="hidden" id="limit" name="limit" value="10">
-		<input type="hidden" id="pagenum" name="pagenum" value="1">
-		<table class="board_list">
-			<colgroup>
-				<col width="10%" />
-				<col width="*" />
-				<col width="15%" />
-				<col width="20%" />
-			</colgroup>
-			<thead>
-				<tr>
-					<th scope="col">글번호</th>
-					<th scope="col">제목</th>
-					<th scope="col">작성자</th>
-					<th scope="col">작성일</th>
-				</tr>
-			</thead>
-			<tbody id="list">
-			</tbody>
-		</table>
-		<br />
-		<ul id=paging>
-		</ul>
-		<input type="button" onclick="location.href='/write'" class="btn" id="write" value="글쓰기"/>
-	</form>
+	<div id="wrap">
+	<jsp:include page="/WEB-INF/views/header.jsp" />
+		<h2>게시판 목록</h2>
+		<div class="fence">
+			<div class="right">
+				<input type="button" onclick="location.href='/write'" class="btn" id="write" value="글쓰기"/>
+			</div>
+		</div>
+		<form id="form01">
+			<input type="hidden" id="limit" name="limit" value="10">
+			<input type="hidden" id="pagenum" name="pagenum" value="1">
+			<table class="board_list">
+				<colgroup>
+					<col width="10%" />
+					<col width="*" />
+					<col width="20%" />
+					<col width="20%" />
+				</colgroup>
+				<thead>
+					<tr>
+						<th scope="col">글번호</th>
+						<th scope="col">제목</th>
+						<th scope="col">작성자</th>
+						<th scope="col">작성일</th>
+					</tr>
+				</thead>
+				<tbody id="list">
+				</tbody>
+			</table>
+			<br />
+			<ul id=paging>
+			</ul>
+		</form>
+	</div>
 </body>
 </html>
 <script id="listTmpl" type="text/x-jquery-tmpl">

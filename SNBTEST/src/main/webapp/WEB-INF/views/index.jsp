@@ -6,6 +6,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="/loginCheck" >HI</a>
+Hello World!
 </body>
 </html>

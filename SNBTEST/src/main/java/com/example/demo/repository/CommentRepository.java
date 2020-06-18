@@ -4,8 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.entity.Snbuser;
+import com.example.demo.entity.Snbcomment;
 
 @Repository
-public interface UserRepository extends JpaRepository<Snbuser, String>, JpaSpecificationExecutor<Snbuser> {
+public interface CommentRepository extends JpaRepository<Snbcomment, Integer>, JpaSpecificationExecutor<Snbcomment> {
 }

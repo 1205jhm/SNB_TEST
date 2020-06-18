@@ -11,8 +11,8 @@ import lombok.Data;
 public class Snbuser {
 
 	@Id
-	private String userid;
+	private String username;
 
 	@Column
-	private String pass;
+	private String password;
 }
