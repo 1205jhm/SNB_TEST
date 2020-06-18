@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.Controller;
 
 import java.util.List;
 
@@ -14,14 +14,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.entity.Snbboard;
+import com.example.demo.service.BoardService;
 
 @Controller
-public class SnbController {
+public class BoardController {
 
-	private final Logger logger = LoggerFactory.getLogger(SnbController.class);
+	private final Logger logger = LoggerFactory.getLogger(BoardController.class);
 
 	@Autowired
-	private SnbService snbService;
+	private BoardService snbService;
 
 	@RequestMapping(value = "/list")
 	public String list() {

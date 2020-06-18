@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.util;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;

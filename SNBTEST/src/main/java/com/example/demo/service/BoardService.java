@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.service;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -14,9 +14,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Snbboard;
+import com.example.demo.repository.BoardRepository;
+import com.example.demo.util.BoardSpec;
 
 @Service
-public class SnbService {
+public class BoardService {
 
 	@Autowired
 	private BoardRepository boardRepository;
