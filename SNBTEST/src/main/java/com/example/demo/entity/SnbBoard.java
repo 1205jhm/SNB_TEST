@@ -18,11 +18,11 @@ import lombok.Data;
 @DynamicInsert
 @Data
 @Entity
-public class Snbboard {
+public class SnbBoard {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer boardseq;
+	private Integer boardSeq;
 
 	@Column
 	private String title;
@@ -31,23 +31,23 @@ public class Snbboard {
 	private String content;
 
 	@Column(insertable = false)
-	private String delyn;
+	private String delYn;
 
 	@Column(insertable = false, updatable = false)
-	private LocalDateTime insdate;
+	private LocalDateTime insDate;
 
 	@Column(insertable = false)
-	private LocalDateTime upddate;
+	private LocalDateTime updDate;
 
 	@Column(updatable = false)
-	private String insuser;
+	private String insUser;
 
 	@Transient
-	private int totalpage;
+	private int totalPage;
 
 	@Transient
 	private int limit;
 
 	@Transient
-	private int pagenum;
+	private int pageNum;
 }

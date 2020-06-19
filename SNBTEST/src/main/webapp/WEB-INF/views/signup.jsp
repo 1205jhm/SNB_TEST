@@ -20,11 +20,22 @@
 					contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
 					dataType : 'json',
 					success : function(result) {
-						alert("회원가입 성공");
-						location.href='/login';
+						if(result == 0)
+						{
+							alert("회원가입 성공");
+							location.href='/login';
+						}
+						else if(result == -1)
+						{
+							alert("해당 ID가 이미 존재합니다.");
+						}
+						else
+						{
+							alert("에러 : " + result);
+						}
 					},
-					error : function(request, error) {
-						alert("code:"+request.status+"\n message:"+request.responseText+"\n error:"+error);
+					error : function(xhr, status, error) {
+						alert("xhr:"+xhr.status+"\n"+"status:"+status+"\n"+"error:"+error);
 					}
 				});
 			}

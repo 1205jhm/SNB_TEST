@@ -17,27 +17,27 @@ import lombok.Data;
 @DynamicInsert
 @Data
 @Entity
-public class Snbcomment {
+public class SnbComment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer commentseq;
+	private Integer commentSeq;
 	
 	@Column(updatable = false)
-	private Integer boardseq;
+	private Integer boardSeq;
 
 	@Column(updatable = false)
-	private String content;
+	private String comment;
 
 	@Column(insertable = false)
-	private String delyn;
+	private String delYn;
 
 	@Column(insertable = false, updatable = false)
-	private LocalDateTime insdate;
+	private LocalDateTime insDate;
 
 	@Column(insertable = false)
-	private LocalDateTime upddate;
+	private LocalDateTime updDate;
 
 	@Column(updatable = false)
-	private String insuser;
+	private String insUser;
 }

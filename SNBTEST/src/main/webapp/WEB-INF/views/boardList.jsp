@@ -18,24 +18,32 @@
 				contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
 				dataType : 'json',
 				success : function(result) {
-					var paging = "";
-					for(var i=1; i<=result[0].totalpage; i++) {
-						paging += "<li id='num"+i+"' onclick='setpage("+i+")'><a>"+i+"</a></li>"
+					if(result.length > 0)
+					{
+						var paging = "";
+						for(var i=1; i<=result[0].totalPage; i++) {
+							paging += "<li onclick='setPage("+i+")'><a>"+i+"</a></li>"
+						}
+					    $("#page").html(paging);
+					    $("#list").html("");
+						$("#listTmpl").tmpl(result).appendTo("#list");
 					}
-				    $("#page").html(paging);
-				    $("#list").html("");
-					$("#listTmpl").tmpl(result).appendTo("#list");
+					else
+					{
+						$("#list").html("<tr><td colspan='4'>게시글이 없습니다.</td></tr>");
+					}
+				},
+				error : function(xhr, status, error) {
+					alert("xhr:"+xhr.status+"\n"+"status:"+status+"\n"+"error:"+error);
 				}
 			});
 		}
-		function setpage(i) {
-			$("#pagenum").val(i);
-			$("li").removeAttr("class");
-			$("#num"+i).attr("class","now");
+		function setPage(i) {
+			$("#pageNum").val(i);
 			findAllBoard();
 		}
-		function view(boardseq) {
-			location.href="/view?boardseq="+boardseq;
+		function view(boardSeq) {
+			location.href="/view?boardSeq="+boardSeq;
 		}
 		$(document).ready(function() {
 			findAllBoard();
@@ -44,7 +52,7 @@
 </head>
 <body>
 	<div id="wrap">
-	<jsp:include page="/WEB-INF/views/header.jsp" />
+		<jsp:include page="/WEB-INF/views/header.jsp" />
 		<h2>게시판 목록</h2>
 		<div class="fence">
 			<div class="right">
@@ -53,7 +61,7 @@
 		</div>
 		<form id="form01">
 			<input type="hidden" id="limit" name="limit" value="10">
-			<input type="hidden" id="pagenum" name="pagenum" value="1">
+			<input type="hidden" id="pageNum" name="pageNum" value="1">
 			<table class="board_list">
 				<colgroup>
 					<col width="10%" />
@@ -80,10 +88,10 @@
 </body>
 </html>
 <script id="listTmpl" type="text/x-jquery-tmpl">
-	<tr onclick="view('${'${'}boardseq}')">
-		<td>${'${'}boardseq}</td>
+	<tr onclick="view('${'${'}boardSeq}')">
+		<td>${'${'}boardSeq}</td>
 		<td>${'${'}title}</td>
-		<td>${'${'}insuser}</td>
-		<td>${'${'}insdate}</td>
+		<td>${'${'}insUser}</td>
+		<td>${'${'}insDate}</td>
 	<tr>
 </script>

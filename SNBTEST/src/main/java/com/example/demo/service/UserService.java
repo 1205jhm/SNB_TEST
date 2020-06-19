@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entity.Snbuser;
+import com.example.demo.entity.SnbUser;
 import com.example.demo.repository.UserRepository;
 
 @Service
@@ -22,22 +22,30 @@ public class UserService implements UserDetailsService {
 	@Autowired
 	private UserRepository userRepository;
 
-	public Snbuser login(Snbuser snbuser) {
-		Optional<Snbuser> snbuserOptional = userRepository.findById(snbuser.getUsername());
-		Snbuser loginuser = snbuserOptional.get();
+	public SnbUser login(SnbUser snbuser) {
+		Optional<SnbUser> snbuserOptional = userRepository.findById(snbuser.getUsername());
+		SnbUser loginuser = snbuserOptional.get();
 		return loginuser;
 	}
 
-	public Snbuser join(Snbuser snbuser) {
-		return userRepository.save(snbuser);
+	public int join(SnbUser snbuser) {
+		Optional<SnbUser> snbuserOptional = userRepository.findById(snbuser.getUsername());
+		if(!snbuserOptional.isEmpty())
+		{
+			return -1;
+		}
+		else
+		{
+			userRepository.save(snbuser);
+			return 0;
+		}
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Optional<Snbuser> byUserName = userRepository.findById(username);
-		Snbuser snbuser = byUserName.orElseThrow(() -> new UsernameNotFoundException(username));
+		Optional<SnbUser> byUserName = userRepository.findById(username);
+		SnbUser snbuser = byUserName.orElseThrow(() -> new UsernameNotFoundException(username));
 		return new User(snbuser.getUsername(), "{noop}" + snbuser.getPassword(), authorities());
-
 	}
 
 	private Collection<? extends GrantedAuthority> authorities() {

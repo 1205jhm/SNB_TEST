@@ -9,7 +9,7 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
 	<script type="text/javascript">
-		var insuser = "${row.insuser }";
+		var insUser ="${row.insUser }"
 		function saveBoard() {
 			var params = $("#form01").serialize();
 			$.ajax({
@@ -19,10 +19,10 @@
 				contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
 				dataType : 'json',
 				success : function(result) {
-					location.href="/list";
+					window.location.reload();
 				},
-				error : function(request, error) {
-					alert("code:"+request.status+"\n message:"+request.responseText+"\n error:"+error);
+				error : function(xhr, status, error) {
+					alert("xhr:"+xhr.status+"\n"+"status:"+status+"\n"+"error:"+error);
 				}
 			});
 		}
@@ -37,8 +37,8 @@
 				success : function(result) {
 					location.href="/list";
 				},
-				error : function(request, error) {
-					alert("code:"+request.status+"\n message:"+request.responseText+"\n error:"+error);
+				error : function(xhr, status, error) {
+					alert("xhr:"+xhr.status+"\n"+"status:"+status+"\n"+"error:"+error);
 				}
 			});
 		}
@@ -48,7 +48,7 @@
 			$("#change").css("display","none");
 			$("#delete").css("display","none");
 			$("#list").css("display","none");
-			$(".comment_view").css("display","none");
+			$("#comment_list").css("display","none");
 			$("#save").css("display","");
 			$("#cancel").css("display","");
 			$(".view").attr("class","wirte");
@@ -59,7 +59,7 @@
 			$("#change").css("display","");
 			$("#delete").css("display","");
 			$("#list").css("display","");
-			$(".comment_view").css("display","");
+			$("#comment_list").css("display","");
 			$("#save").css("display","none");
 			$("#cancel").css("display","none");
 			$(".wirte").attr("class","view");
@@ -70,16 +70,16 @@
 			$.ajax({
 				url : '/findAllComment.do',
 				type : 'POST',
-				data : {boardseq : $("#boardseq").val()},
+				data : {boardSeq : $("#boardSeq").val()},
 				contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
 				dataType : 'json',
 				success : function(result) {
-					$("#commentlist").html("")
-					$("#commentlistTmpl").tmpl(result).appendTo("#commentlist");
+					$("#commentList").html("")
+					$("#commentListTmpl").tmpl(result).appendTo("#commentList");
 					$("."+$("#username").text()).css("display","");
 				},
-				error : function(request, error) {
-					alert("code:"+request.status+"\n message:"+request.responseText+"\n error:"+error);
+				error : function(xhr, status, error) {
+					alert("xhr:"+xhr.status+"\n"+"status:"+status+"\n"+"error:"+error);
 				}
 			});
 		}
@@ -87,23 +87,23 @@
 			$.ajax({
 				url : '/saveComment.do',
 				type : 'POST',
-				data : {"boardseq" : $("#boardseq").val(), "content" : $("#comment").val()},
+				data : {"boardSeq" : $("#boardSeq").val(), "comment" : $("#comment").val()},
 				contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
 				dataType : 'json',
 				success : function(result) {
 					$("#comment").val("");
 					findAllComment();
 				},
-				error : function(request, error) {
-					alert("code:"+request.status+"\n message:"+request.responseText+"\n error:"+error);
+				error : function(xhr, status, error) {
+					alert("xhr:"+xhr.status+"\n"+"status:"+status+"\n"+"error:"+error);
 				}
 			});
 		}
-		function deleteComment(commentseq) {
+		function deleteComment(commentSeq) {
 			$.ajax({
 				url : '/deleteComment.do',
 				type : 'POST',
-				data : {"commentseq" : commentseq},
+				data : {"commentSeq" : commentSeq},
 				contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
 				dataType : 'json',
 				success : function(result) {
@@ -115,7 +115,7 @@
 			});
 		}
 		$(document).ready(function() {
-			if(insuser == $("#username").text())
+			if(insUser == $("#username").text())
 			{
 				$("#change").css("display","");
 				$("#delete").css("display","");
@@ -128,7 +128,7 @@
 	<div id="wrap">
 	<jsp:include page="/WEB-INF/views/header.jsp" />
 		<form id="form01">
-			<input type="hidden" id="boardseq" name="boardseq" value="${row.boardseq }"/>
+			<input type="hidden" id="boardSeq" name="boardSeq" value="${row.boardSeq }"/>
 			<table class="board_view">
 				<colgroup>
 					<col width="15%">
@@ -148,17 +148,15 @@
 					</tr>
 				</tbody>
 			</table>
-			<div class="fence">
-				<div class="right">
-					<input type="button" onclick="writeMode();" class="btn" id="change" value="수정하기" style="display:none;"/>
-					<input type="button" onclick="deleteBoard();"class="btn" id="delete" value="삭제하기" style="display:none;"/>
-					<input type="button" onclick="location.href='/list'"class="btn" id="list" value="목록으로"/>
-					<input type="button" onclick="saveBoard();" class="btn" id="save" value="저장하기" style="display:none;"/>
-					<input type="button" onclick="viewMode();" class="btn" id="cancel" value="취소하기" style="display:none;"/>
-				</div>
+			<div>
+				<input type="button" onclick="writeMode();" class="btn" id="change" value="수정하기" style="display:none;"/>
+				<input type="button" onclick="deleteBoard();"class="btn" id="delete" value="삭제하기" style="display:none;"/>
+				<input type="button" onclick="location.href='/list'"class="btn" id="list" value="목록으로"/>
+				<input type="button" onclick="saveBoard();" class="btn" id="save" value="저장하기" style="display:none;"/>
+				<input type="button" onclick="viewMode();" class="btn" id="cancel" value="취소하기" style="display:none;"/>
 			</div>
 			<br/>
-			<table class="comment_view">
+			<table class="board_list" id="comment_list">
 				<colgroup>
 					<col width="*" />
 					<col width="10%" />
@@ -177,20 +175,20 @@
 						</td>
 					</tr>
 				</thead>
-				<tbody id="commentlist">
+				<tbody id="commentList">
 				</tbody>
 			</table>
 		</form>
 	</div>
 </body>
 </html>
-<script id="commentlistTmpl" type="text/x-jquery-tmpl">
+<script id="commentListTmpl" type="text/x-jquery-tmpl">
 	<tr>
-		<td>${'${'}content}</td>
-		<td>${'${'}insuser}</td>
-		<td>${'${'}insdate}</td>
-		<td class="right2">
-			<input type="button" onclick='deleteComment("${'${'}commentseq}");'class="btn ${'${'}insuser}" value="삭제하기" style="display:none;"/>
+		<td>${'${'}comment}</td>
+		<td>${'${'}insUser}</td>
+		<td>${'${'}insDate}</td>
+		<td>
+			<input type="button" onclick='deleteComment("${'${'}commentSeq}");'class="btn ${'${'}insUser}" value="삭제하기" style="display:none;"/>
 		</td>
 	<tr>
 </script>

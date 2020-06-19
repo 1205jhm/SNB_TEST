@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Snbuser {
+public class SnbUser {
 
 	@Id
 	private String username;

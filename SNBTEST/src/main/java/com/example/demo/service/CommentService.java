@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entity.Snbcomment;
+import com.example.demo.entity.SnbComment;
 import com.example.demo.repository.CommentRepository;
 import com.example.demo.util.CommentSpec;
 
@@ -17,21 +17,21 @@ public class CommentService {
 	@Autowired
 	private CommentRepository commentRepository;
 
-	public List<Snbcomment> findAllComment(Snbcomment Snbcomment) {
-		String boardseq = "" + Snbcomment.getBoardseq();
-		List<Snbcomment> snbcommentList = commentRepository.findAll(CommentSpec.withBoardseq(boardseq).and(CommentSpec.withDelyn("N")), Sort.by("commentseq").ascending());
+	public List<SnbComment> findAllComment(SnbComment Snbcomment) {
+		String boardSeq = "" + Snbcomment.getBoardSeq();
+		List<SnbComment> snbcommentList = commentRepository.findAll(CommentSpec.withBoardSeq(boardSeq).and(CommentSpec.withDelYn("N")), Sort.by("commentSeq").ascending());
 		return snbcommentList;
 	}
 
-	public Snbcomment saveComment(Snbcomment snbcomment) {
-		snbcomment.setDelyn("N");
-		snbcomment.setUpddate(LocalDateTime.now());
-		return commentRepository.save(snbcomment);
+	public SnbComment saveComment(SnbComment snbComment) {
+		snbComment.setDelYn("N");
+		snbComment.setUpdDate(LocalDateTime.now());
+		return commentRepository.save(snbComment);
 	}
 
-	public Snbcomment deleteComment(Snbcomment snbcomment) {
-		snbcomment.setDelyn("Y");
-		snbcomment.setUpddate(LocalDateTime.now());
-		return commentRepository.save(snbcomment);
+	public SnbComment deleteComment(SnbComment snbComment) {
+		snbComment.setDelYn("Y");
+		snbComment.setUpdDate(LocalDateTime.now());
+		return commentRepository.save(snbComment);
 	}
 }

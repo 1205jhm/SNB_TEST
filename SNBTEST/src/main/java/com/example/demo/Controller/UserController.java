@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.demo.entity.Snbuser;
+import com.example.demo.entity.SnbUser;
 import com.example.demo.service.UserService;
 
 @Controller
@@ -27,7 +27,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/join.do", method = RequestMethod.POST)
-	public @ResponseBody Snbuser join(@ModelAttribute Snbuser snbuser) {
+	public @ResponseBody int join(@ModelAttribute SnbUser snbuser) {
 		return userService.join(snbuser);
 	}
 }

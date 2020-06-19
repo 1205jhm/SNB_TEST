@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.demo.entity.Snbboard;
+import com.example.demo.entity.SnbBoard;
 import com.example.demo.service.BoardService;
 
 @Controller
@@ -29,7 +29,7 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/findAllBoard.do", method = RequestMethod.POST)
-	public @ResponseBody List<Snbboard> findAllBoard(@ModelAttribute Snbboard snbboard) {
+	public @ResponseBody List<SnbBoard> findAllBoard(@ModelAttribute SnbBoard snbboard) {
 		return boardService.findAllBoard(snbboard);
 	}
 
@@ -39,22 +39,22 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/saveBoard.do", method = RequestMethod.POST)
-	public @ResponseBody Snbboard saveBoard(@ModelAttribute Snbboard snbboard) {
+	public @ResponseBody SnbBoard saveBoard(@ModelAttribute SnbBoard snbboard) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
-		snbboard.setInsuser(user.getUsername());
+		snbboard.setInsUser(user.getUsername());
 		return boardService.saveBoard(snbboard);
 	}
 
 	@RequestMapping(value = "/deleteBoard.do", method = RequestMethod.POST)
-	public @ResponseBody Snbboard deleteBoard(@ModelAttribute Snbboard snbboard) {
+	public @ResponseBody SnbBoard deleteBoard(@ModelAttribute SnbBoard snbboard) {
 		return boardService.deleteBoard(snbboard);
 	}
 
 	@RequestMapping(value = "/view")
-	public ModelAndView view(@RequestParam String boardseq) {
+	public ModelAndView view(@RequestParam String boardSeq) {
 		ModelAndView mv = new ModelAndView("boardView");
-		Snbboard snbboard = boardService.findByIdBoard(Integer.parseInt(boardseq));
+		SnbBoard snbboard = boardService.findByIdBoard(Integer.parseInt(boardSeq));
 		mv.addObject("row", snbboard);
 		return mv;
 	}

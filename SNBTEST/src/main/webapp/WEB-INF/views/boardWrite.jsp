@@ -18,10 +18,10 @@
 				contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
 				dataType : 'json',
 				success : function(result) {
-					location.href="/list";
+					location.href="/view?boardSeq="+result.boardSeq;
 				},
-				error : function(request, error) {
-					alert("code:"+request.status+"\n message:"+request.responseText+"\n error:"+error);
+				error : function(xhr, status, error) {
+					alert("xhr:"+xhr.status+"\n"+"status:"+status+"\n"+"error:"+error);
 				}
 			});
 		}
@@ -50,11 +50,9 @@
 					</tr>
 				</tbody>
 			</table>
-			<div class="fence">
-				<div class="right">
-					<input type="button" onclick="saveBoard();" class="btn" id="write" value="작성하기"/>
-					<input type="button" onclick="location.href='/list'"class="btn" id="list" value="목록으로"/>
-				</div>
+			<div>
+				<input type="button" onclick="saveBoard();" class="btn" id="write" value="작성하기"/>
+				<input type="button" onclick="location.href='/list'"class="btn" id="list" value="목록으로"/>
 			</div>
 		</form>
 	</div>
