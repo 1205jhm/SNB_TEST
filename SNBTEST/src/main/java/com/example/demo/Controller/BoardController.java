@@ -23,6 +23,11 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 
+	@RequestMapping(value = "/")
+	public String home() {
+		return "redirect:/list";
+	}
+	
 	@RequestMapping(value = "/list")
 	public String list() {
 		return "boardList";
