@@ -50,4 +50,11 @@ public class SnbBoard {
 
 	@Transient
 	private int pageNum;
+
+	@Override
+	public String toString() {
+		return "SnbBoard [boardSeq=" + boardSeq + ", title=" + title + ", content=" + content + ", delYn=" + delYn
+				+ ", insDate=" + insDate + ", updDate=" + updDate + ", insUser=" + insUser + ", totalPage=" + totalPage
+				+ ", limit=" + limit + ", pageNum=" + pageNum + "]";
+	}
 }

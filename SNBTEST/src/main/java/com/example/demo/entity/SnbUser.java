@@ -15,4 +15,9 @@ public class SnbUser {
 
 	@Column
 	private String password;
+
+	@Override
+	public String toString() {
+		return "SnbUser [username=" + username + ", password=" + password + "]";
+	}
 }

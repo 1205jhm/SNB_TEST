@@ -22,7 +22,7 @@ public class CommentController {
 	private CommentService commentService;
 
 	@RequestMapping(value = "/findAllComment.do", method = RequestMethod.POST)
-	public @ResponseBody List<SnbComment> findAllBoard(@ModelAttribute SnbComment Snbcomment) {
+	public @ResponseBody List<SnbComment> findAllComment(@ModelAttribute SnbComment Snbcomment) {
 		return commentService.findAllComment(Snbcomment);
 	}
 

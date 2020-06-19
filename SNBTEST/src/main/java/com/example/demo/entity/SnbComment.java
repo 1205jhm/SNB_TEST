@@ -40,4 +40,10 @@ public class SnbComment {
 
 	@Column(updatable = false)
 	private String insUser;
+
+	@Override
+	public String toString() {
+		return "SnbComment [commentSeq=" + commentSeq + ", boardSeq=" + boardSeq + ", comment=" + comment + ", delYn="
+				+ delYn + ", insDate=" + insDate + ", updDate=" + updDate + ", insUser=" + insUser + "]";
+	}
 }
