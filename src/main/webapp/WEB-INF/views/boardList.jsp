@@ -49,6 +49,14 @@
 			findAllBoard();
 		});
 	</script>
+	<script id="listTmpl" type="text/x-jquery-tmpl">
+	<tr onclick="view('${'${'}boardSeq}')">
+		<td>${'${'}boardSeq}</td>
+		<td>${'${'}title}</td>
+		<td>${'${'}insUser}</td>
+		<td>${'${'}insDate}</td>
+	<tr>
+	</script>
 </head>
 <body>
 	<div id="wrap">
@@ -87,11 +95,3 @@
 	</div>
 </body>
 </html>
-<script id="listTmpl" type="text/x-jquery-tmpl">
-	<tr onclick="view('${'${'}boardSeq}')">
-		<td>${'${'}boardSeq}</td>
-		<td>${'${'}title}</td>
-		<td>${'${'}insUser}</td>
-		<td>${'${'}insDate}</td>
-	<tr>
-</script>

@@ -123,6 +123,16 @@
 			findAllComment();
 		});
 	</script>
+	<script id="commentListTmpl" type="text/x-jquery-tmpl">
+	<tr>
+		<td>${'${'}comment}</td>
+		<td>${'${'}insUser}</td>
+		<td>${'${'}insDate}</td>
+		<td>
+			<input type="button" onclick='deleteComment("${'${'}commentSeq}");'class="btn ${'${'}insUser}" value="삭제하기" style="display:none;"/>
+		</td>
+	<tr>
+	</script>
 </head>
 <body>
 	<div id="wrap">
@@ -182,13 +192,3 @@
 	</div>
 </body>
 </html>
-<script id="commentListTmpl" type="text/x-jquery-tmpl">
-	<tr>
-		<td>${'${'}comment}</td>
-		<td>${'${'}insUser}</td>
-		<td>${'${'}insDate}</td>
-		<td>
-			<input type="button" onclick='deleteComment("${'${'}commentSeq}");'class="btn ${'${'}insUser}" value="삭제하기" style="display:none;"/>
-		</td>
-	<tr>
-</script>
